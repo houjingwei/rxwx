@@ -4,7 +4,7 @@
 
 #### 项目介绍 ####
 
-#####项目采用技术：Dubbo+spring+mybatis＋redis＋maven#####
+#####项目采用技术：dubbo+zookeeper+spring+springMvc+mybatis＋redis+mysql＋maven#####
 
 #####项目结构说明#####
 	rxwx-model : 数据模型
