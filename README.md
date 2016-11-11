@@ -40,4 +40,22 @@
 > ip:端口／rxwx-api/api/userList 或 ip:端口／rxwx-api/api/findOne
 > 
 
+> 
+> 
+> 使用默认中央仓库下载很慢，可以采用阿里云镜像
+> 修改maven目录下conf/ settings.xml 
+
+  <p>
+  
+  	<mirrors>
+	    <mirror> 
+	      <id>alimaven</id>    
+	      <name>aliyun maven</name>  
+	      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>  
+	      <mirrorOf>central</mirrorOf>          
+	    </mirror> 
+    </mirrors> 
+    
+  </p>
+
 
