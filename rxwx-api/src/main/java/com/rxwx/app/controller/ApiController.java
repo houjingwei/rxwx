@@ -1,6 +1,5 @@
 package com.rxwx.app.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +18,7 @@ import com.rxwx.service.user.UserService;
 
 
 @Controller
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/")
 
 public class ApiController extends BaseController{
 
