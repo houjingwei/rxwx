@@ -59,3 +59,9 @@
   </p>
 
 
+
+
+#####项目问题解决#####
+> 1.如果dubbo配置文件报错，提示dubbo标签找不到，请在
+> `XML`下`XML Catalog` 中添加`rxwx`下`pro-file`中的`dubbo.xsd`文件
+
