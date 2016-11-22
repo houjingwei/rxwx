@@ -31,22 +31,22 @@
 			</set>
 		</property>
 
-        <property name="maxRedirects"   value="5" />
+		<property name="maxRedirects" value="5" />
 	</bean>
-	
-	<bean id="jedisPoolConfig"   class="redis.clients.jedis.JedisPoolConfig">
-           <property name="maxIdle" value="1000" />
-   </bean>
 
-	<bean id="jedisConnFactory"   class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true">
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="1000" />
+	</bean>
 
-           <constructor-arg ref="redisClusterConfiguration" />
+	<bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true">
 
-           <constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisClusterConfiguration" />
 
-  </bean>
-  <bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-  
+		<constructor-arg ref="jedisPoolConfig" />
+
+	</bean>
+	<bean id="stringSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="jedisConnFactory" />
 		<property name="hashKeySerializer" ref="stringSerializer" />
