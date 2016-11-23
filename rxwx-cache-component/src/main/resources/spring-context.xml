@@ -10,6 +10,7 @@
 	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<context:property-placeholder location="classpath:config.properties" />
+	
 	<context:component-scan base-package="com.rxwx.cache" />
 
 	<!-- redis cluster 集群配置 
@@ -19,7 +20,7 @@
 	<!-- redis 单点配置 -->
 	 <import resource="classpath:spring-redis.xml" />
 	
-	<import resource="classpath:dubbo-provider.xml"/>
+	<import resource="classpath:spring-dubbo.xml"/>
 	
 	
 

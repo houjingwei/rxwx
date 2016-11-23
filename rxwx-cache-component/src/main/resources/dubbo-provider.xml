@@ -6,10 +6,7 @@
     http://code.alibabatech.com/schema/dubbo        
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-	<dubbo:application name="${dubbo.application}" />
-	<dubbo:registry address="${dubbo.registry}" />
-	<dubbo:protocol name="dubbo" port="${dubbo.protocol}" />
 
-	<dubbo:service interface="com.rxwx.service.cache.CacheService" ref="cacheService" />
+	<dubbo:service interface="com.rxwx.service.cache.CacheService" ref="cacheService" executes="100" actives="100" version="${dubbo.provider.version}" />
 
 </beans>

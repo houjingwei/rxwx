@@ -9,7 +9,7 @@
 
 	<dubbo:application name="${dubbo.application}" />
 	<dubbo:registry address="${dubbo.registry}" />
-	<dubbo:protocol name="dubbo" port="${dubbo.protocol}" />
+	<dubbo:protocol name="dubbo" port="${dubbo.protocol}"  dispatcher="all" threadpool="fixed" threads="100" accepts="100" />
 
 	<import resource="classpath:dubbo-provider.xml"/>
 	<import resource="classpath:dubbo-consumer.xml"/> 
