@@ -135,5 +135,6 @@
   	<module>rxwx-common</module>
   	<module>rxwx-model</module>
   	<module>rxwx-api</module>
+  	<module>rxwx-kafka</module>
   </modules>
 </project>

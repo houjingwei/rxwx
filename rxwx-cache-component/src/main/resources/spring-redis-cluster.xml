@@ -10,24 +10,20 @@
       http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<bean id="clusterRedisNodes1" class="org.springframework.data.redis.connection.RedisNode">
-		<constructor-arg value="139.224.72.183" />
-		<constructor-arg value="7111" type="int" />
+		<constructor-arg value="192.168.30.23" />
+		<constructor-arg value="19000" type="int" />
 	</bean>
 	<bean id="clusterRedisNodes2" class="org.springframework.data.redis.connection.RedisNode">
-		<constructor-arg value="139.224.72.183" />
-		<constructor-arg value="7112" type="int" />
+		<constructor-arg value="192.168.30.24" />
+		<constructor-arg value="19000" type="int" />
 	</bean>
-	<bean id="clusterRedisNodes3" class="org.springframework.data.redis.connection.RedisNode">
-		<constructor-arg value="139.224.72.183" />
-		<constructor-arg value="7113" type="int" />
-	</bean>
+	
 
 	<bean id="redisClusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
 		<property name="clusterNodes">
 			<set>
 				<ref bean="clusterRedisNodes1" />
 				<ref bean="clusterRedisNodes2" />
-				<ref bean="clusterRedisNodes3" />
 			</set>
 		</property>
 

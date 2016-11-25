@@ -13,13 +13,9 @@
 	
 	<context:component-scan base-package="com.rxwx.cache" />
 
-	<!-- redis cluster 集群配置 -->
-	<import resource="classpath:spring-redis-cluster.xml" />
-	
-	
-	<!-- redis 单点配置 
-	 <import resource="classpath:spring-redis.xml" />
-	-->
+	<!-- kafka配置 -->
+	<import resource="classpath:spring-kafka.xml" />
+
 	<import resource="classpath:spring-dubbo.xml"/>
 	
 	

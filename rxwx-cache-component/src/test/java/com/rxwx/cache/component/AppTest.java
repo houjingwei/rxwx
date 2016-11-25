@@ -24,7 +24,7 @@ public class AppTest extends TestCase {
 	@Test
     public void cacheTest(){  
 		List<User> userList = new ArrayList<User>();
-    	for(int i=0 ;i<20000;i++){
+    	for(int i=0 ;i<2;i++){
     		User user = new User();
     		user.setEmail("houjingwei"+i+"@163.com");
     		user.setPassword("password"+i);

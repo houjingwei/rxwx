@@ -7,9 +7,10 @@
     <artifactId>rxwx</artifactId>
     <version>1.0.0</version>
   </parent>
-  <artifactId>rxwx-model</artifactId>
-  <name>rxwx-model</name>
+  <artifactId>rxwx-kafka</artifactId>
+  <name>rxwx-kafka</name>
   <url>http://maven.apache.org</url>
+  <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -19,6 +20,11 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>com.rxwx.app</groupId>
+    	<artifactId>rxwx-service</artifactId>
+    	<version>1.0.0</version>
     </dependency>
   </dependencies>
 </project>
