@@ -8,7 +8,7 @@
     <version>1.0.0</version>
   </parent>
   <artifactId>rxwx-service</artifactId>
-  <name>rxwx-service</name>
+  <name>rxwx-service</name> 
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,7 @@
     	<groupId>com.rxwx.app</groupId>
     	<artifactId>rxwx-common</artifactId>
     	<version>1.0.0</version>
-    </dependency>
+    </dependency> 
     <dependency>
     	<groupId>com.rxwx.app</groupId>
     	<artifactId>rxwx-model</artifactId>

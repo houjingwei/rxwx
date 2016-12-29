@@ -1,5 +1,6 @@
 package com.rxwx.cache.component;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -9,16 +10,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
 
 import com.rxwx.common.exception.CustomException;
 import com.rxwx.common.exception.CustomExceptionEnum;
 import com.rxwx.service.cache.CacheService;
 
-
-@Service(value = "cacheService")
-public class CacheServiceImpl implements CacheService {
-
+public abstract class CacheServiceImpl implements CacheService {
+	
+	protected abstract String getKey(String key);
 	private final static Logger logger = Logger.getLogger(CacheServiceImpl.class);
 
 	@Autowired
@@ -34,8 +33,9 @@ public class CacheServiceImpl implements CacheService {
 	 * 
 	 */
 	public void remove(final String... keys) {
+		redisTemplate.delete(Arrays.asList(keys));
 		for (String key : keys) {
-			removeObject(key);
+			removeObject(getKey(key));
 		}
 	}
 
@@ -64,9 +64,7 @@ public class CacheServiceImpl implements CacheService {
 	 * 
 	 */
 	public void removeObject(final String key) {
-		if (exists(key)) {
-			redisTemplate.delete(key);
-		}
+		redisTemplate.delete(getKey(key));
 	}
 
 	/**
@@ -81,14 +79,14 @@ public class CacheServiceImpl implements CacheService {
 	 * 
 	 */
 	public boolean exists(final String key) {
-		return redisTemplate.hasKey(key);
+		return redisTemplate.hasKey(getKey(key));
 	}
 
 
 	public Long increment(final String key, Long value) {
 		Long result = 0L;
 		try {
-			Long operations = redisTemplate.opsForValue().increment(key, value);
+			Long operations = redisTemplate.opsForValue().increment(getKey(key), value);
 			result = operations;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -100,7 +98,7 @@ public class CacheServiceImpl implements CacheService {
 	public Long getIncrValue(String key) throws CustomException {
 		Long result = 0L;
 		try {
-			Long operations = redisTemplate.opsForValue().increment(key, 0L);
+			Long operations = redisTemplate.opsForValue().increment(getKey(key), 0L);
 			result = operations;
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -111,8 +109,7 @@ public class CacheServiceImpl implements CacheService {
 
 	public void add(String key, Object value, int minutes) throws CustomException {
 		try {
-			redisTemplate.opsForValue().set(key, value);
-			redisTemplate.expire(key, minutes, TimeUnit.MINUTES);
+			redisTemplate.opsForValue().set(getKey(key), value, minutes, TimeUnit.MINUTES);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw new CustomException(CustomExceptionEnum.CACHE_ERROR, ex.getMessage());
@@ -121,7 +118,7 @@ public class CacheServiceImpl implements CacheService {
 
 	public void add(String key, Object value) throws CustomException {
 		try {
-			redisTemplate.opsForValue().set(key, value);
+			redisTemplate.opsForValue().set(getKey(key), value);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw new CustomException(CustomExceptionEnum.CACHE_ERROR, ex.getMessage());
@@ -132,13 +129,12 @@ public class CacheServiceImpl implements CacheService {
 	public void addList(String key, Collection<? extends Object> values) throws CustomException {
 		try {
 			if (values != null && values.size() > 0) {
-				remove(key);
-
+//				remove(key);
 				// redisTemplate.opsForList().leftPushAll(key, values);
-
-				for (Object value : values) {
-					redisTemplate.opsForList().leftPush(key, value);
-				}
+				redisTemplate.opsForList().leftPushAll(getKey(key), values);
+//				for (Object value : values) {
+//					redisTemplate.opsForList().leftPush(key, value);
+//				}
 			}
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
@@ -149,13 +145,13 @@ public class CacheServiceImpl implements CacheService {
 
 	public void addList(String key, Collection<? extends Object> values, int minutes) throws CustomException {
 		try {
-			remove(key);
-			// redisTemplate.opsForList().leftPushAll(key, values);
+//			remove(key);
+			redisTemplate.opsForList().leftPushAll(key, values, minutes, TimeUnit.MINUTES);
 
-			for (Object value : values) {
-				redisTemplate.opsForList().leftPush(key, value);
-			}
-			redisTemplate.expire(key, minutes, TimeUnit.MINUTES);
+//			for (Object value : values) {
+//				redisTemplate.opsForList().leftPush(key, value);
+//			}
+//			redisTemplate.expire(key, minutes, TimeUnit.MINUTES);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw new CustomException(CustomExceptionEnum.CACHE_ERROR, ex.getMessage());

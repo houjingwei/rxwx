@@ -3,13 +3,63 @@
 <mapper namespace="com.rxwx.user.mapper.UserMapper">
 
 
-	<select id="findUserList" resultType="com.rxwx.model.User">
-		select * from users
+	<resultMap id="baseResultMap" type="com.rxwx.model.User">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="photo" property="photo" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="baseColumnList">
+		id, username, password, photo, sex, email, status, phone
+	</sql>
+	
+	<sql id="select_where" >
+    where 1 = 1
+    <if test="vo.id != null">
+        and user_id=#{vo.id}
+    </if>     
+    <if test="vo.username != null and vo.username != ''">
+        and username=#{vo.username}
+    </if> 
+    <if test="vo.password != null and vo.password != ''">
+        and password=#{vo.password}
+    </if>         
+    <if test="vo.sex != null and vo.sex != ''">
+        and sex=#{vo.sex}
+    </if>   
+    <if test="vo.email != null and vo.email != ''">
+        and email=#{vo.email}
+    </if> 
+    <if test="vo.status != null and vo.status != ''">
+        and status=#{vo.status}
+    </if> 
+    <if test="vo.phone != null and vo.phone != ''">
+        and phone=#{vo.phone}
+    </if> 
+  </sql>
+	
+
+	<select id="findUserList" resultMap="baseResultMap">
+		select <include refid="baseColumnList" /> from users
+	</select>
+	
+	<select id="findUserListByPage" resultMap="baseResultMap">
+		select <include refid="baseColumnList" /> from users
 	</select>
 
 
 	<select id="findByUsername" parameterType="java.lang.String" resultType="com.rxwx.model.User">
-		select * from users where username = #{username}
+		select <include refid="baseColumnList" /> from users where username = #{username}
 	</select>
+
+	<select id="selectUserList" parameterType="com.rxwx.model.User" resultMap="baseResultMap">
+		select <include refid="baseColumnList" /> from users <include refid="select_where" />
+	</select>
+
 
 </mapper>

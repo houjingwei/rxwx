@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int-kafka="http://www.springframework.org/schema/integration/kafka"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/integration/kafka 	
+         http://www.springframework.org/schema/integration/kafka/spring-integration-kafka.xsd">
+
+ 	<!--   <int-kafka:message-driven-channel-adapter
+            id="kafkaMessageDrivenChannelAdapter"
+            listener-container="messageListenerContainer"
+            auto-startup="true"
+            phase="100"
+            send-timeout="5000"
+            channel="nullChannel"
+            message-converter="messagingMessageConverter"
+            error-channel="errorChannel"/>
+	 -->
+	<bean id="messagingMessageConverter" class="org.springframework.kafka.support.converter.MessagingMessageConverter"/>
+	
+	<!-- 定义consumer的参数 -->
+	<bean id="consumerProperties" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="bootstrap.servers" value="${consumer.bootstrap.servers}" />
+				<entry key="group.id" value="${consumer.group.id}" />
+				<entry key="enable.auto.commit" value="${consumer.enable.auto.commit}" />
+				<entry key="auto.commit.interval.ms" value="${consumer.auto.commit.interval.ms}" />
+				<entry key="session.timeout.ms" value="${consumer.session.timeout.ms}" />
+				<entry key="key.deserializer" value="${consumer.key.deserializer}" />
+				<entry key="value.deserializer" value="${consumer.value.deserializer}" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- 创建consumerFactory bean -->
+	<bean id="consumerFactory"
+		class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
+		<constructor-arg>
+			<ref bean="consumerProperties" />
+		</constructor-arg>
+	</bean>
+
+	<!-- 实际执行消息消费的类 -->
+	<bean id="kafkaConsumerService" class="com.rxwx.kafka.component.KafkaConsumer" />
+
+	<!-- 消费者容器配置信息 -->
+	<bean id="containerProperties"
+		class="org.springframework.kafka.listener.config.ContainerProperties">
+		<constructor-arg name="topics" >
+			<list>
+				<!-- <value>TEST-TOPIC1</value> -->
+				<value>TEST-TOPIC2</value>
+			</list>
+		</constructor-arg>
+		<property name="messageListener" ref="kafkaConsumerService" />
+	</bean>
+	<!-- init-method="doStart" -->
+	<!-- 创建kafkatemplate bean，使用的时候，只需要注入这个bean，即可使用template的send消息方法 -->
+	<bean id="messageListenerContainer"
+		class="org.springframework.kafka.listener.KafkaMessageListenerContainer"
+		init-method="doStart">
+		<constructor-arg ref="consumerFactory" />
+		<constructor-arg ref="containerProperties" />
+	</bean>
+
+</beans>

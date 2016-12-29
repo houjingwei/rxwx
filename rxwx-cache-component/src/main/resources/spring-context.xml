@@ -2,26 +2,36 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://code.alibabatech.com/schema/dubbo          
-	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<context:property-placeholder location="classpath:config.properties" />
-	
+	<context:property-placeholder
+		location="classpath:common_config.properties,classpath:config.properties" />
+
 	<context:component-scan base-package="com.rxwx.cache" />
 
-	<!-- redis cluster 集群配置 -->
-	<import resource="classpath:spring-redis-cluster.xml" />
+	<!-- redis cluster 集群配置 <import resource="classpath:spring-redis-cluster.xml" 
+		/> -->
+
+	<!-- redis 单点配置 -->
+	<import resource="classpath:spring-redis.xml" />
+
+	<import resource="classpath:spring-dubbo.xml" />
 	
-	
-	<!-- redis 单点配置 
-	 <import resource="classpath:spring-redis.xml" />
-	-->
-	<import resource="classpath:spring-dubbo.xml"/>
-	
-	
+	<!-- 启动AspectJ支持 -->  
+    <aop:aspectj-autoproxy /> 
+
+	<!-- 定义Aspect -->  
+    <bean id="aopLoger" class="com.rxwx.cache.aop.AopLogger" />  
+  
+
+
 
 </beans>

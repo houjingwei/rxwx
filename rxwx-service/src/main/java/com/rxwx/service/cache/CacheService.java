@@ -123,5 +123,6 @@ public interface CacheService {
 	void expire(String key, int minutes) throws CustomException;
 
 	public boolean exists(final String key);
-
+	
+	public void removeObject(final String key);
 }

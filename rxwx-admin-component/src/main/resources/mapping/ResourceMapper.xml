@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rxwx.admin.mapper.ResourceMapper">
+
+	<resultMap id="resourceResultMap" type="com.rxwx.model.Resource">
+		<id column="res.id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="desc" property="desc" jdbcType="VARCHAR" />
+		<result column="order" property="order" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="INTEGER" />
+		<result column="createTime" property="createTime" jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="resourceColumnList">
+		id,name,desc,order,type,url,pid,createTime,status
+	</sql>
+	
+	
+
+	<select id="findAdminResourceByAdminId"  parameterType="Map" resultMap="resourceResultMap">
+		select res.*  from admin a , admin_role ar , role r ,role_resource rr , resource res 
+			where ar.admin_id = a.id and ar.role_id = r.id 
+				and rr.role_id = r.id
+				and rr.resource_id = res.id
+				<if test="type!=null">
+	                 and res.type=#{type}
+	            </if> 
+				and a.id = #{adminId} group by res.name 
+	</select>
+	
+
+
+	
+
+	
+
+</mapper>

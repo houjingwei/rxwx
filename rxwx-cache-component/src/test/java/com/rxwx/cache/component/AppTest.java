@@ -24,7 +24,7 @@ public class AppTest extends TestCase {
 	@Test
     public void cacheTest(){  
 		List<User> userList = new ArrayList<User>();
-    	for(int i=0 ;i<2;i++){
+    	for(int i=0 ;i<1000;i++){
     		User user = new User();
     		user.setEmail("houjingwei"+i+"@163.com");
     		user.setPassword("password"+i);
@@ -35,7 +35,8 @@ public class AppTest extends TestCase {
     	Date startSaveDate = new Date();
     	System.out.println("开始缓存"+DateUtil.convert2String(startSaveDate, "yyyy-MM-dd HH:mm:ss"));
     	
-    	cacheService.add("userList", userList);
+    	cacheService.add("listCache", userList);
+    	
     	
     	Date endSaveDate = new Date();
     	System.out.println("缓存结束"+DateUtil.convert2String(endSaveDate, "yyyy-MM-dd HH:mm:ss"));
@@ -43,10 +44,18 @@ public class AppTest extends TestCase {
     	
     	Date startGetDate = new Date();
     	System.out.println("开始读取"+DateUtil.convert2String(startGetDate, "yyyy-MM-dd HH:mm:ss"));
-    	Object obj = cacheService.get("userList");
+    	Object obj = cacheService.get("listCache");
     	List<User> users = (List<User>) obj;
     	Date endGetDate = new Date();
     	System.out.println("读取结束"+DateUtil.convert2String(endGetDate, "yyyy-MM-dd HH:mm:ss"));
     	System.out.println("读取对象集合耗时<毫秒>:"+DateUtil.diffMs(startGetDate, endGetDate)+"ms");
     } 
+	
+	@Test
+	public void hasKey(){
+		boolean bool = cacheService.exists("findByUsername");
+		System.out.println("*********************"+bool);
+	}
+	
+	 
 }
