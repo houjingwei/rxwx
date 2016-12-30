@@ -9,7 +9,7 @@
                         http://www.dangdang.com/schema/ddframe/job 
                         http://www.dangdang.com/schema/ddframe/job/job.xsd ">
 	<!--配置作业注册中心 -->
-	<reg:zookeeper id="reg" server-lists="192.168.30.31:2181" namespace="cache-job" base-sleep-time-milliseconds="1000"
+	<reg:zookeeper id="reg" server-lists="139.224.72.183:2181" namespace="cache-job" base-sleep-time-milliseconds="1000"
 		max-sleep-time-milliseconds="3000" max-retries="3" />
 
 	<job:simple id="userTask" class="com.rxwx.task.quartz.UserTask" registry-center-ref="reg" cron="0/5 * * * * ?" sharding-total-count="1"  />

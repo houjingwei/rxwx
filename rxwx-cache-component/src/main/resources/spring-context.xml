@@ -25,12 +25,12 @@
 
 	<import resource="classpath:spring-dubbo.xml" />
 	
-	<!-- 启动AspectJ支持 -->  
+	<!-- 启动AspectJ支持
     <aop:aspectj-autoproxy /> 
-
-	<!-- 定义Aspect -->  
+ 	-->
+	<!-- 定义Aspect
     <bean id="aopLoger" class="com.rxwx.cache.aop.AopLogger" />  
-  
+ 	 -->
 
 
 

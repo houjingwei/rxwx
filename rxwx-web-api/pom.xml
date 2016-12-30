@@ -59,11 +59,7 @@
 			<version>2.4.2</version>
 		</dependency>
 
-		<!-- zookeeper -->
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-		</dependency>
+
 
 		<dependency>
 			<groupId>com.101tec</groupId>
@@ -82,11 +78,7 @@
 			<version>1.0.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.rxwx.app</groupId>
-			<artifactId>rxwx-common</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+
 
 		<!-- jstl -->
 		<dependency>

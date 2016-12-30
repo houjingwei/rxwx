@@ -7,10 +7,10 @@
         <dependent-module archiveName="rxwx-service-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rxwx-service/rxwx-service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="rxwx-model-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rxwx-model/rxwx-model">
+        <dependent-module archiveName="rxwx-common-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rxwx-common/rxwx-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="rxwx-common-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rxwx-common/rxwx-common">
+        <dependent-module archiveName="rxwx-model-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rxwx-model/rxwx-model">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/rxwx-web-api/target/classes"/>

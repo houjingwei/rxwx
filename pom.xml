@@ -134,9 +134,7 @@
   	<module>rxwx-user-component</module>
   	<module>rxwx-common</module>
   	<module>rxwx-model</module>
-  	<module>rxwx-kafka</module>
-  	
-  	<module>rxwx-web-api</module>
+  <module>rxwx-web-api</module>
     <module>rxwx-task-quartz</module>
     <module>rxwx-core-dao</module>
     <module>rxwx-admin</module>
