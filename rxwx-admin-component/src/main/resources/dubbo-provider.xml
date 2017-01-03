@@ -7,4 +7,6 @@
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<dubbo:service interface="com.rxwx.service.admin.AdminService" ref="adminService" executes="100" actives="100" version="${dubbo.provider.version}"/>
+	<dubbo:service interface="com.rxwx.service.admin.MenuResourceService" ref="menuResourceService" executes="100" actives="100" version="${dubbo.provider.version}"/>
+	<dubbo:service interface="com.rxwx.service.admin.ResourceService" ref="resourceService" executes="100" actives="100" version="${dubbo.provider.version}"/>
 </beans>

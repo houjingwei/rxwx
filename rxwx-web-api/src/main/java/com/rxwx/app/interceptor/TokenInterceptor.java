@@ -49,28 +49,28 @@ public class TokenInterceptor implements HandlerInterceptor {
 		
 		String token = request.getParameter("token");
 		Long uid = NumberUtils.toLong(request.getParameter("uid"));
-//		try {
-//			if(StringUtil.hasNull(token) && null!=uid){
-//				throw new CustomException(CustomExceptionEnum.COMMON_WRONG_PARAMS);
-//			}else{
-//				boolean verifToken = accountService.verifToken(token, uid, null);
-//				if (!verifToken) {
-//					throw new CustomException(CustomExceptionEnum.COMMON_ERROR_TOKEN);
-//				}
-//			}
-//		} catch (CustomException ce) {
-//			this.logger.error("code:" + ce.getException().getCode() + " msg:" + ce.getException().getMsg());
-//			code = ce.getException().getCode();
-//			msg = ce.getException().getMsg();
-//		}
-//		
-//		if (code != BaseController.CODE_SUCCESS) {
-//			Object result = this.getResultMap(code, msg, null);
-//			response.setCharacterEncoding("UTF-8");
-//			response.setContentType("application/json; charset=utf-8");
-//			response.getWriter().append(JSON.toJSONString(result));
-//			return false;
-//		}
+		try {
+			if(StringUtil.hasNull(token) && null!=uid){
+				throw new CustomException(CustomExceptionEnum.COMMON_WRONG_PARAMS);
+			}else{
+				boolean verifToken = accountService.verifToken(token, uid, null);
+				if (!verifToken) {
+					throw new CustomException(CustomExceptionEnum.COMMON_ERROR_TOKEN);
+				}
+			}
+		} catch (CustomException ce) {
+			this.logger.error("code:" + ce.getException().getCode() + " msg:" + ce.getException().getMsg());
+			code = ce.getException().getCode();
+			msg = ce.getException().getMsg();
+		}
+
+		if (code != BaseController.CODE_SUCCESS) {
+			Object result = this.getResultMap(code, msg, null);
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/json; charset=utf-8");
+			response.getWriter().append(JSON.toJSONString(result));
+			return false;
+		}
 		
 		return true;
 	}

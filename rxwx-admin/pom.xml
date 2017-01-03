@@ -1,25 +1,26 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.rxwx.app</groupId>
-    <artifactId>rxwx</artifactId>
-    <version>1.0.0</version>
-  </parent>
-  <artifactId>rxwx-admin</artifactId>
-  <packaging>war</packaging>
-  <name>rxwx-admin Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  	<properties>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.rxwx.app</groupId>
+		<artifactId>rxwx</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>rxwx-admin</artifactId>
+	<packaging>war</packaging>
+	<name>rxwx-admin Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.2.RELEASE</spring.version>
 		<shiro.version>1.2.3</shiro.version>
 	</properties>
-  
-  
-  	<dependencies>
+
+
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -111,7 +112,35 @@
 			<version>${shiro.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.rxwx.app</groupId>
+			<artifactId>rxwx-service</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>3.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- zookeeper -->
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.crazycake</groupId>
+			<artifactId>shiro-redis</artifactId>
+			<version>2.4.2.1-RELEASE</version>
+		</dependency>
 
 
 	</dependencies>
@@ -128,14 +157,14 @@
 				</configuration>
 			</plugin>
 			<!-- 修改maven默认的JRE编译版本，1.8代表JRE编译的版本，根据自己的安装版本选择1.7或1.8 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 		</plugins>
 
 	</build>

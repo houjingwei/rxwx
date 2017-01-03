@@ -69,10 +69,15 @@ public class ApiController extends BaseController{
 
 		try {
 			UserVo vo = accountService.login(phone, password, request.getRemoteHost());
-			data = vo;
+			if(null!=null){
+				data = vo;
+			}else{
+				msg = "用户名或密码错误";
+			}
 		} catch (CustomException ce) {
 			logger.error("code:" + ce.getException().getCode() + " msg:" + ce.getException().getMsg());
 			code = ce.getException().getCode();
+			msg = ce.getMessage();
 			
 		}catch (Exception e) {
 			this.logger.error(e.getMessage(), e);

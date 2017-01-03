@@ -27,19 +27,23 @@ public class MenuResourceServiceImpl extends AbstractService implements MenuReso
 	@Autowired MenuService menuService;
 	
 	public List<MenuResourceVo> userMenuList(Integer adminId) {
-		List<MenuResourceVo> voList = new ArrayList<MenuResourceVo>();
+		List<MenuResourceVo> voList = null;
 		List<AdminResourceVo> resList = adminService.findAdminResourceVo(adminId);
 		List<Menu> menuList = menuService.findAllMenu();
-		for (Menu menu : menuList) {
-			for (AdminResourceVo res : resList) {
-				if(res.getMenuId()==menu.getId()){
-					MenuResourceVo vo = new MenuResourceVo();
-					vo.setMenuId(menu.getId());
-					vo.setMenuName(menu.getName());
-					voList.add(vo);
+		if(null!=menuList && menuList.size()>0){
+			voList = new ArrayList<MenuResourceVo>();
+			for (Menu menu : menuList) {
+				for (AdminResourceVo res : resList) {
+					if(res.getMenuId()==menu.getId()){
+						MenuResourceVo vo = new MenuResourceVo();
+						vo.setMenuId(menu.getId());
+						vo.setMenuName(menu.getName());
+						voList.add(vo);
+					}
 				}
 			}
 		}
+		
 		
 		if(null!=voList && voList.size()>0){
 			for (MenuResourceVo mr : voList) {
@@ -61,6 +65,7 @@ public class MenuResourceServiceImpl extends AbstractService implements MenuReso
 				mr.setResList(reslist);
 			}
 		}
+		System.out.println("菜单总数量:"+voList.size());
 		return voList;
 	}
 

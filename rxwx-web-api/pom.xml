@@ -59,8 +59,7 @@
 			<version>2.4.2</version>
 		</dependency>
 
-
-
+		<!-- zookeeper -->
 		<dependency>
 			<groupId>com.101tec</groupId>
 			<artifactId>zkclient</artifactId>
@@ -78,7 +77,11 @@
 			<version>1.0.0</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.rxwx.app</groupId>
+			<artifactId>rxwx-common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 
 		<!-- jstl -->
 		<dependency>

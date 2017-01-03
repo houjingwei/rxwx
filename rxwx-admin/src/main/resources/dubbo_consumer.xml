@@ -8,13 +8,9 @@
 
 	<dubbo:application name="${dubbo.application}" />
 	<dubbo:registry address="${dubbo.registry}" />
-	<dubbo:protocol id="dubbo1" name="dubbo" port="${dubbo.protocol}" />
-	<dubbo:protocol id="dubbo2" name="dubbo" port="${dubbo.protocol2}" />
-	
-	
-	<dubbo:reference  interface="com.dsp.service.user.UserService" cluster="failover" retries="2" id="userService" check="false" timeout="10000"/>
-	<dubbo:reference  interface="com.dsp.service.user.RoleService"  cluster="failover" retries="2" id="roleService" check="false" timeout="10000"/>
-	<dubbo:reference  interface="com.dsp.service.user.ResourceService" cluster="failover" retries="2"  id="resourceService" check="false" timeout="10000"/>
-	<dubbo:reference  interface="com.dsp.service.cache.CacheService" cluster="failover" retries="2"  id="cacheService" check="false" timeout="10000"/>
-	
+
+
+	<dubbo:reference interface="com.rxwx.service.admin.AdminService" id="adminService" check="false" timeout="3000" retries="2" version="${dubbo.consumer.version}" />
+	<dubbo:reference interface="com.rxwx.service.admin.MenuResourceService" id="menuResourceService" check="false" timeout="3000" retries="2" version="${dubbo.consumer.version}" />
+
 </beans>
