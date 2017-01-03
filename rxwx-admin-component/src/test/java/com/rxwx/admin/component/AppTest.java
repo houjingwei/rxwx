@@ -55,6 +55,33 @@ public class AppTest extends TestCase {
 		
 	}
 	
+	
+	
+	@Test
+	public void addRole() {
+		
+		Admin admin=adminService.findByAccount("admin");
+		System.out.println("账户信息 >> 账户－admin，账户ID－"+admin.getId()+"账户名称－"+admin.getName()+"");
+	
+		Set<String> roles = adminService.findRoles("admin");
+		System.out.println("admin 拥有的角色"+roles);
+		
+		
+		Set<String> resSet = adminService.findResources("admin");
+		System.out.println("admin 拥有的权限资源"+resSet);
+		
+		System.out.println("admin 拥有的菜单结构");
+		List<MenuResourceVo> menuList = menuResourceService.userMenuList(admin.getId());
+		for (MenuResourceVo menuResourceVo : menuList) {
+			System.out.println(menuResourceVo.getMenuName());
+			for (Resource res : menuResourceVo.getResList()) {
+				System.out.println("    |-"+res.getDesc()+" url:"+res.getUrl());
+			}
+		}
+		
+		
+	}
+	
 //	@Test
 //	public void findByUsername() {
 //		List<Admin> list = adminService.findList();

@@ -11,10 +11,18 @@ public class Role extends BaseModel {
 	private static final long serialVersionUID = 1678817863429128653L;
 	private Integer id;
 	private String name;
-	private String desc;
+	private String description;
 	private Integer order;
 	private Date createTime;
 	private Integer status;
+	
+	public Role(int id) {
+		this.id = id;
+	}
+	
+	public Role() {
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -27,11 +35,11 @@ public class Role extends BaseModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public Integer getOrder() {
 		return order;
