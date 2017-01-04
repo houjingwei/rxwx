@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rxwx.admin.mapper.RoleMapper">
+
+	<resultMap id="roleResultMap" type="com.rxwx.model.Role">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="order" property="order" jdbcType="INTEGER" />
+		<result column="createTime" property="createTime" jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="roleColumnList">
+		id,name,description,order,createTime,status
+	</sql>
+
+
+
+	<!--保存 -->
+	<insert id="addRole" parameterType="com.rxwx.model.Role">
+		insert into role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="description != null">
+				#{description},
+			</if>
+		</trim>
+	</insert>
+
+
+	<!--修改 -->
+	<update id="updateRole" parameterType="com.rxwx.model.Role">
+		update role
+		<set>
+			<if test="name != null">
+				name=#{ name },
+			</if>
+			<if test="description != null">
+				description=#{ description },
+			</if>
+			<if test="order != null">
+				order=#{ order },
+			</if>
+			<if test="status != null">
+				status=#{ status }
+			</if>
+		</set>
+		where
+		id=#{ id }
+	</update>
+
+
+	<!--修改 -->
+	<update id="isEnableRole" parameterType="com.rxwx.model.Role">
+		update role
+		<set>
+			<if test="status != null">
+				status=#{ status }
+			</if>
+		</set>
+		where
+		id=#{ id }
+	</update>
+
+
+	 <insert id="roleAddResource" parameterType="java.util.Map">
+		insert into role_resource (role_id,resource_id)
+		values
+		<foreach collection="resourceIds" item="item" index="index"
+			separator=",">
+			(#{roleId},#{item})
+		</foreach>
+	</insert> 
+	
+	<delete id="roleDelAllResourceById"  parameterType="java.util.Map">
+	      delete from role_resource where role_id = #{roleId}
+    </delete>
+
+</mapper>
