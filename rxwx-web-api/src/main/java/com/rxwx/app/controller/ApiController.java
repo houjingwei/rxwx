@@ -6,18 +6,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.math.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.dubbo.container.page.Page;
 import com.rxwx.common.exception.CustomException;
-import com.rxwx.common.mybatis.page.Page;
-import com.rxwx.common.mybatis.page.PageVo;
 import com.rxwx.model.User;
 import com.rxwx.service.user.AccountService;
 import com.rxwx.service.user.UserService;
@@ -141,35 +137,7 @@ public class ApiController extends BaseController{
 	
 	
 	
-	@RequestMapping(value = "/pageUser")
-    @ResponseBody
-    public Object page(@RequestParam Map<String, String> requestMap, HttpServletRequest request,
-			HttpServletResponse response){
-		logger.info("getOwnFans request map : " + requestMap);
-
-		int code = BaseController.CODE_SUCCESS;
-		String msg = BaseController.MSG_SUCCESS;
-		Object data = null;
-
-		Page page = this.getRequestPageVO_default(requestMap);
-
-		try {
-			PageVo<User> userPage = userService.findUserListByPage(page);
-			data = userPage;
-
-		} catch (CustomException ce) {
-			this.logger.error("code:" + ce.getException().getCode() + " msg:" + ce.getException().getMsg());
-			code = ce.getException().getCode();
-			msg = ce.getException().getMsg();
-		} catch (Exception e) {
-			this.logger.error(e.getMessage(), e);
-			code = BaseController.CODE_ERROR_EXCEPTION;
-			msg = BaseController.MSG_ERROR_EXCEPTION;
-		}
-		// 结果处理
-		Object result = this.getResultMap(code, msg, data);
-		return result;
-    }
+	
 	
 	
 	

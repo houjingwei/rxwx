@@ -3,10 +3,7 @@ package com.rxwx.service.user;
 import java.util.List;
 
 import com.rxwx.common.exception.CustomException;
-import com.rxwx.common.mybatis.page.Page;
-import com.rxwx.common.mybatis.page.PageVo;
 import com.rxwx.model.User;
-import com.rxwx.vo.UserVo;
 
 /**
  * 
@@ -30,7 +27,6 @@ public interface UserService {
 	 */
 	User findByUsername(String username) throws CustomException;
 
-	PageVo<User> findUserListByPage(Page page)throws CustomException;
 
 	
 }

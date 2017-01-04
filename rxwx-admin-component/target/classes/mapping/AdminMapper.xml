@@ -18,7 +18,7 @@
 	</resultMap>
 
 	<sql id="baseColumnList">
-		id,account,name,password,phone,email,age,sex,createTime,status
+		id,account,name,password,phone,email,age,sex,createTime,status,photo
 	</sql>
 
 	<sql id="select_where">

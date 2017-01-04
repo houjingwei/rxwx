@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.rxwx.common.mybatis.page.BootPage;
 import com.rxwx.model.Role;
 import com.rxwx.service.admin.RoleService;
 
@@ -50,6 +51,16 @@ public class RoleTest extends TestCase {
 		Integer[] resoureIds = new Integer[]{1,2,3,6,7,8,9};
 		boolean bool = roleService.roleAddResource(roleId, resoureIds);
 		System.out.println("roleAddResource() >> "+bool);
+	}
+	
+	@Test
+	public void findAll() {
+		BootPage<Role> page = new BootPage<Role>();
+		page.setOffset(1);
+		page.setLimit(3);
+    	page.setOffset(1);
+    	BootPage<Role> roles = roleService.findAllRoleByPage(page);
+		System.out.println("findAll() >> "+roles);
 	}
 	
 	

@@ -48,9 +48,6 @@
 		select <include refid="baseColumnList" /> from users
 	</select>
 	
-	<select id="findUserListByPage" resultMap="baseResultMap">
-		select <include refid="baseColumnList" /> from users
-	</select>
 
 
 	<select id="findByUsername" parameterType="java.lang.String" resultType="com.rxwx.model.User">

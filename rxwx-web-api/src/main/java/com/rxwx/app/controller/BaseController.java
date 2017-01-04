@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.rxwx.common.mybatis.page.Page;
 
 public class BaseController {
 	
@@ -72,35 +71,4 @@ public class BaseController {
 
 	}
 	
-	
-	/**
-	 * 获取页面提交的分页信息
-	 *
-	 * @param requestMap
-	 * 
-	 * @return
-	 */
-	final protected Page getRequestPageVO_default(Map<String, String> requestMap)
-	{
-		Page page = null;
-		String p = requestMap.get("page");
-		String ps = requestMap.get("pageSize");
-		try
-		{
-			if (!StringUtils.isEmpty(p) && !StringUtils.isEmpty(ps))
-			{
-				page = new Page(new Integer(p), new Integer(ps));
-			} else if (!StringUtils.isEmpty(p)) {
-				page = new Page(new Integer(p), DEFAULT_PAGESIZE);
-			} else
-			{
-				page = new Page(1, DEFAULT_PAGESIZE);
-			}
-
-		} catch (NumberFormatException e)
-		{
-
-		}
-		return page;
-	}
 }

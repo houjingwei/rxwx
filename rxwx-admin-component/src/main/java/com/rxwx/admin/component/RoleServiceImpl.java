@@ -1,10 +1,16 @@
 package com.rxwx.admin.component;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rxwx.admin.mapper.RoleMapper;
 import com.rxwx.common.exception.CustomException;
+import com.rxwx.common.exception.CustomExceptionEnum;
+import com.rxwx.common.mybatis.page.BootPage;
 import com.rxwx.core.dao.AbstractService;
 import com.rxwx.model.Role;
 import com.rxwx.service.admin.RoleService;
@@ -42,6 +48,22 @@ public class RoleServiceImpl  extends AbstractService  implements RoleService {
 	@Override
 	public boolean roleDelAllResourceById(Integer roleId) throws CustomException {
 		return roleMapper.roleDelAllResourceById(roleId);
+	}
+
+	@Override
+	public BootPage<Role> findAllRoleByPage(BootPage page) throws CustomException {
+		try {
+			PageHelper.startPage(page.getOffset(), page.getLimit());
+			List<Role> list =  roleMapper.findAllRole();
+			PageInfo info = new PageInfo(list);
+			page.setRows(info.getList());
+			page.setTotal(info.getTotal());
+			return page;
+		} catch (Exception e) {
+			logger.error("catch Exception", e);
+
+			throw new CustomException(CustomExceptionEnum.COMMON_DB_ERRORS);
+		}
 	}
 
 	

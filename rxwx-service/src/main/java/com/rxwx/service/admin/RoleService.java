@@ -1,6 +1,7 @@
 package com.rxwx.service.admin;
 
 import com.rxwx.common.exception.CustomException;
+import com.rxwx.common.mybatis.page.BootPage;
 import com.rxwx.model.Role;
 
 public interface RoleService {
@@ -45,5 +46,12 @@ public interface RoleService {
 	 * @throws CustomException
 	 */
 	public boolean roleDelAllResourceById(Integer roleId) throws CustomException;
+
+	/**
+	 * 分页查询角色
+	 * @param page
+	 * @return
+	 */
+	public BootPage<Role> findAllRoleByPage(BootPage page) throws CustomException;
 
 }

@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rxwx.common.exception.CustomException;
-import com.rxwx.common.exception.CustomExceptionEnum;
-import com.rxwx.common.mybatis.page.Page;
-import com.rxwx.common.mybatis.page.PageVo;
 import com.rxwx.model.User;
 import com.rxwx.service.cache.CacheService;
 import com.rxwx.service.user.UserService;
@@ -65,17 +62,7 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	public PageVo<User> findUserListByPage(Page page) throws CustomException {
-		
-		try {
-			return userMapper.findUserListByPage(page).toPageVO();
-
-		} catch (Exception e) {
-			logger.error("catch Exception", e);
-
-			throw new CustomException(CustomExceptionEnum.COMMON_DB_ERRORS);
-		}
-	}
+	
 
 
 

@@ -11,6 +11,6 @@
 
 
 	<dubbo:reference interface="com.rxwx.service.admin.AdminService" id="adminService" check="false" timeout="3000" retries="2" version="${dubbo.consumer.version}" />
-	<dubbo:reference interface="com.rxwx.service.admin.MenuResourceService" id="menuResourceService" check="false" timeout="3000" retries="2" version="${dubbo.consumer.version}" />
-
+	<dubbo:reference interface="com.rxwx.service.admin.ResourceService" id="resourceService" check="false" timeout="3000" retries="2" version="${dubbo.consumer.version}" />
+	<dubbo:reference interface="com.rxwx.service.admin.RoleService" id="roleService" check="false" timeout="3000" retries="2" version="${dubbo.consumer.version}" />
 </beans>
