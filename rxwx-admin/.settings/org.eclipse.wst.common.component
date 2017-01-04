@@ -17,6 +17,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/rxwx-admin/target/classes"/>
-        <property name="context-root" value="/admin"/>
+        <property name="context-root" value="rxwx-admin"/>
     </wb-module>
 </project-modules>
