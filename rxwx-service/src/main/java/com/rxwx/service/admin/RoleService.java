@@ -30,5 +30,20 @@ public interface RoleService {
 	 * @throws CustomException
 	 */
 	public boolean isEnableRole(Role role)throws CustomException;
+	
+
+	/**
+	 * 角色添加权限资源
+	 * @return
+	 * @throws CustomException
+	 */
+	public boolean roleAddResource(Integer roleId,Integer[] resourceId) throws CustomException;
+	
+	/**
+	 * 角色添加权限资源
+	 * @return
+	 * @throws CustomException
+	 */
+	public boolean roleDelAllResourceById(Integer roleId) throws CustomException;
 
 }

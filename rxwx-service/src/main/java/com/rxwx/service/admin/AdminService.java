@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.rxwx.common.exception.CustomException;
 import com.rxwx.model.Admin;
+import com.rxwx.model.Role;
 import com.rxwx.vo.AdminResourceVo;
 
 public interface AdminService {
@@ -48,4 +49,48 @@ public interface AdminService {
 	List<AdminResourceVo> findAdminResourceVo(Integer adminId) throws CustomException;
 	
 
+	/**
+	 * 添加账户
+	 * @param admin
+	 * @return
+	 * @throws CustomException
+	 */
+	public boolean addAdmin(Admin admin) throws CustomException;
+	
+	
+	/**
+	 * 更新账户
+	 * @param admin
+	 * @return
+	 * @throws CustomException
+	 */
+	public boolean updateAdmin(Admin admin)throws CustomException;
+	
+	
+	/**
+	 * 启用，禁用账户
+	 * @param admin
+	 * @return
+	 * @throws CustomException
+	 */
+	public boolean isEnableAdmin(Admin admin)throws CustomException;
+	
+
+	/**
+	 * 账户添加角色
+	 * @return
+	 * @throws CustomException
+	 */
+	public boolean adminAddRole(Integer adminId,Integer[] roleId) throws CustomException;
+	
+	/**
+	 * 账户删除所有角色
+	 * @return
+	 * @throws CustomException
+	 */
+	public boolean adminDelAllRoleById(Integer adminId) throws CustomException;
+	
+	
+	
+	
 }

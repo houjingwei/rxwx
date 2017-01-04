@@ -1,12 +1,11 @@
 package com.rxwx.admin.mapper;
 
 import java.util.List;
-import java.util.Map;
 
-import com.rxwx.model.Resource;
+import com.rxwx.vo.SysMenuVo;
 
 public interface ResourceMapper {
 
-	List<Resource> findAdminResourceByAdminId(Map<String, Integer> map);
+	List<SysMenuVo> findMenu();
 
 }

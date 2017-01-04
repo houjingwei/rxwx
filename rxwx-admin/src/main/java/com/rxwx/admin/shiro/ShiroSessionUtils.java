@@ -46,7 +46,7 @@ public class ShiroSessionUtils {
 	}
 
 	public static void setAsLogin(Admin admin) {
-		setAttribute(LOGIN_ATTRIVUTE_NAME, admin);
+		
 	}
 
 	public static void setAsLogout() {
@@ -55,5 +55,9 @@ public class ShiroSessionUtils {
 
 	public static Admin getLoginAccount() {
 		return (Admin) getAttribute(LOGIN_ATTRIVUTE_NAME);
+	}
+	
+	public static void setLoginAccount(Admin admin) {
+		setAttribute(LOGIN_ATTRIVUTE_NAME, admin);
 	}
 }

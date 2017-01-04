@@ -14,68 +14,206 @@
 		<result column="sex" property="sex" jdbcType="INTEGER" />
 		<result column="createTime" property="sex" jdbcType="DATE" />
 		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="photo" property="photo" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<sql id="baseColumnList">
 		id,account,name,password,phone,email,age,sex,createTime,status
 	</sql>
-	
-	<sql id="select_where" >
-    where 1 = 1
-    <if test="vo.id != null">
-        and id=#{vo.id}
-    </if>     
-    <if test="vo.account != null and vo.account != ''">
-        and account=#{vo.account}
-    </if> 
-     <if test="vo.name!= null and vo.name != ''">
-        and name=#{vo.name}
-    </if>
-    <if test="vo.password != null and vo.password != ''">
-        and password=#{vo.password}
-    </if>         
-    <if test="vo.sex != null and vo.sex != ''">
-        and sex=#{vo.sex}
-    </if>   
-    <if test="vo.email != null and vo.email != ''">
-        and email=#{vo.email}
-    </if> 
-    <if test="vo.status != null and vo.status != ''">
-        and status=#{vo.status}
-    </if> 
-    <if test="vo.phone != null and vo.phone != ''">
-        and phone=#{vo.phone}
-    </if> 
-  </sql>
-	
+
+	<sql id="select_where">
+		where 1 = 1
+		<if test="vo.id != null">
+			and id=#{vo.id}
+		</if>
+		<if test="vo.account != null and vo.account != ''">
+			and account=#{vo.account}
+		</if>
+		<if test="vo.name!= null and vo.name != ''">
+			and name=#{vo.name}
+		</if>
+		<if test="vo.password != null and vo.password != ''">
+			and password=#{vo.password}
+		</if>
+		<if test="vo.sex != null and vo.sex != ''">
+			and sex=#{vo.sex}
+		</if>
+		<if test="vo.email != null and vo.email != ''">
+			and email=#{vo.email}
+		</if>
+		<if test="vo.status != null and vo.status != ''">
+			and status=#{vo.status}
+		</if>
+		<if test="vo.phone != null and vo.phone != ''">
+			and phone=#{vo.phone}
+		</if>
+	</sql>
+
 
 	<select id="findList" resultMap="baseResultMap">
-		select <include refid="baseColumnList" /> from admin
-	</select>
-	
-
-
-	<select id="findByAccount" parameterType="java.lang.String" resultType="com.rxwx.model.Admin">
-		select <include refid="baseColumnList" /> from admin where account = #{account}
+		select
+		<include refid="baseColumnList" />
+		from admin
 	</select>
 
-	 <select id="findRoles" parameterType="java.lang.String" resultType="java.lang.String">
-	 select r.name from admin a , admin_role ar , role r where ar.admin_id = a.id and ar.role_id = r.id and a.account = #{account} group by r.name 
-  	 
-    </select>
 
-    <select id="findResources" parameterType="java.lang.String" resultType="java.lang.String">
-		select res.name  from admin a, role r, resource res, admin_role ar, role_resource rr where a.account=#{account} and a.id=ar.admin_id  and r.id=ar.role_id and r.id=rr.role_id and res.id=rr.resource_id group by res.name
-   </select>
-   
-   
-   <select id="findAdminResourceVo" parameterType="java.lang.Integer" resultType="com.rxwx.vo.AdminResourceVo">
-   		select ress.* , mr.menu_id menuId  from (select res.* from admin a , admin_role ar , role r ,role_resource rr , resource res 
-			where ar.admin_id = a.id and ar.role_id = r.id 
-				and rr.role_id = r.id
-				and rr.resource_id = res.id
-				and res.type=0
-			and a.id =  #{adminId})ress left join menu_resource mr on mr.resource_id = ress.id
-   </select>
+
+	<select id="findByAccount" parameterType="java.lang.String"
+		resultType="com.rxwx.model.Admin">
+		select
+		<include refid="baseColumnList" />
+		from admin where account = #{account}
+	</select>
+
+	<select id="findRoles" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select r.name from admin a , admin_role ar , role r where
+		ar.admin_id = a.id
+		and ar.role_id = r.id and a.account = #{account}
+		group by r.name
+
+	</select>
+
+	<select id="findResources" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT code
+			FROM RESOURCE
+			WHERE id IN
+			    (SELECT resource_id
+			     FROM role_resource
+			     WHERE role_id IN
+			         (SELECT role_id
+			          FROM admin_role
+			          WHERE admin_id =
+			              (SELECT id
+			               FROM ADMIN
+			               WHERE account=#{account})
+			          GROUP BY role_id)
+			     GROUP BY resource_id ) group by name
+	</select>
+
+
+	<select id="findAdminResourceVo" parameterType="java.lang.Integer"
+		resultType="com.rxwx.vo.AdminResourceVo">
+		select ress.* , mr.menu_id menuId from (select res.* from
+		admin a ,
+		admin_role ar , role r ,role_resource rr , resource res
+		where
+		ar.admin_id = a.id and ar.role_id = r.id
+		and rr.role_id = r.id
+		and
+		rr.resource_id = res.id
+		and res.type=0
+		and a.id = #{adminId}) ress left
+		join menu_resource mr on mr.resource_id
+		= ress.id
+	</select>
+
+
+
+	<!--保存 -->
+	<insert id="addAdmin" parameterType="com.rxwx.model.Admin">
+		insert into admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="account != null">
+				account,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="photo != null">
+				photo,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="account != null">
+				#{account},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="password != null">
+				#{password},
+			</if>
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="email != null">
+				#{email},
+			</if>
+			<if test="age != null">
+				#{age},
+			</if>
+			<if test="sex != null">
+				#{sex},
+			</if>
+			<if test="photo != null">
+				#{photo},
+			</if>
+		</trim>
+	</insert>
+
+
+	<!--修改 -->
+	<update id="updateAdmin" parameterType="com.rxwx.model.Admin">
+		update admin
+		<set>
+			<if test="account != null">account = #{account},</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="password != null">password = #{password},</if>
+			<if test="phone != null">phone = #{phone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="age != null">age = #{age},</if>
+			<if test="sex != null">sex = #{sex},</if>
+			<if test="photo != null">photo = #{photo}</if>
+		</set>
+		where
+		id=#{ id }
+	</update>
+
+	<!--修改 -->
+	<update id="isEnableAdmin" parameterType="com.rxwx.model.Admin">
+		update admin
+		<set>
+			<if test="status != null">
+				status=#{ status }
+			</if>
+		</set>
+		where
+		id=#{ id }
+	</update>
+
+
+	<insert id="adminAddRole" parameterType="java.util.Map">
+		insert into admin_role (admin_id,role_id)
+		values
+		<foreach collection="roleIds" item="item" index="index"
+			separator=",">
+			(#{adminId},#{item})
+		</foreach>
+	</insert>
+
+
+	<delete id="adminDelAllRoleById" parameterType="java.util.Map">
+		delete from
+		admin_role where admin_id = #{adminId}
+	</delete>
+
+
 
 </mapper>

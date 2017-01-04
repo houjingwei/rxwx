@@ -26,7 +26,7 @@ public class HomeController {
 	@RequestMapping(value = "/index")
 	@RequiresAuthentication
 	public String index(Map map) {
-		Admin admin = ShiroSessionUtils.getLoginUser();
+		Admin admin = ShiroSessionUtils.getLoginAccount();
 		List<MenuResourceVo> menuList = menuResourceService.userMenuList(admin.getId());
 		Set<String> roles = adminService.findRoles(admin.getAccount());
 		map.put("roles",new ArrayList<String>(roles));

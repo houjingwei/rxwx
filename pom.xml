@@ -149,11 +149,9 @@
 		<module>rxwx-service</module>
 		<module>rxwx-cache-component</module>
 		<module>rxwx-user-component</module>
-
 		<module>rxwx-task-quartz</module>
 		<module>rxwx-admin-component</module>
 		<module>rxwx-web-api</module>
-
 		<module>rxwx-admin</module>
 
 	</modules>

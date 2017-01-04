@@ -4,6 +4,11 @@ import java.util.Date;
 
 public class Admin extends BaseModel {
 
+	String[] photos = new String[]{"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2968346531,2530193382&fm=21&gp=0.jpg",
+			"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3294233922,2961186155&fm=21&gp=0.jpg",
+			"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1506126923,1760365564&fm=21&gp=0.jpg",
+			"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3158974790,3445907817&fm=21&gp=0.jpg",
+			"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4240197964,392726488&fm=21&gp=0.jpg"};
 	
 	/**
 	 * 
@@ -19,8 +24,17 @@ public class Admin extends BaseModel {
 	private String email;
 	private Integer age;
 	private Integer sex;
+	private String photo;
 	private Date createTime;
 	private Integer status;
+	
+	public Admin(Integer id) {
+		this.id = id;
+	}
+	
+	public Admin() {
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,6 +95,16 @@ public class Admin extends BaseModel {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String randomPhoto() {
+		int index = (int)(Math.random()*5) ;
+		return photos[index];
+	}
 	
 }
