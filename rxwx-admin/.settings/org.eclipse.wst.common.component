@@ -13,6 +13,9 @@
         <dependent-module archiveName="rxwx-model-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/rxwx-model/rxwx-model">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="shiro-redis-2.4.2.1-RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/shiro-redis/shiro-redis">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/rxwx-admin/target/classes"/>
         <property name="context-root" value="rxwx-admin"/>
     </wb-module>
