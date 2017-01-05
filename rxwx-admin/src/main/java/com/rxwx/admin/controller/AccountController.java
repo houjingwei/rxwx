@@ -52,4 +52,9 @@ public class AccountController {
 		}
 		return  "redirect:/"; 
     }
+	
+	@RequestMapping(value = "/unauthorized")
+    public String unauthorizedUrl(){
+        return  "empty_page"; 
+    }
 }

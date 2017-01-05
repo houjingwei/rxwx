@@ -7,17 +7,17 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	
+
 	<!-- CAS认证过滤器 -->
 	<bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
 		<property name="failureUrl" value="/" />
 	</bean>
-	
+
 	<!-- Shiro的Web过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/" />
-		<property name="successUrl" value="/index" />
+		<property name="successUrl" value="/home/index" />
 		<property name="unauthorizedUrl" value="/unauthorizedUrl" />
 		<property name="filters">
 			<util:map>
@@ -28,10 +28,23 @@
 			<value>
 				/** = anon
 				/assets/** = anon
-				/logout = anon
 				/home/** = authc
-				
+
 			</value>
+		</property>
+	</bean>
+
+
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>		   
+				<prop key="org.apache.shiro.authz.UnauthorizedException">unauthorized</prop>
+				<prop key="org.apache.shiro.authz.UnauthenticatedException">login</prop>
+				<prop key="org.apache.shiro.authz.UnauthenticatedException">login</prop>
+				
+				
+			</props>
 		</property>
 	</bean>
 

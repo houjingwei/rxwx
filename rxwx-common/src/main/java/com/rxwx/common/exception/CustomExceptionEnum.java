@@ -15,7 +15,8 @@ public enum CustomExceptionEnum {
 		CACHE_ERROR(100, "缓存组件异常"),
 
 		// 业务异常 300至1000
-		USER_NOT_EXIST(300, "用户不存在");
+		USER_NOT_EXIST(300, "用户不存在"), 
+		EXC_CACHE_ERROR(100, "缓存组件异常");
 	
 
 	/**

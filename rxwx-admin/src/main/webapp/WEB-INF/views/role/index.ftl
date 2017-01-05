@@ -1,47 +1,25 @@
-<html>
 <@h.head />
-
-<body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
-        
-
-        <!-- Panel Other -->
-        <div class="ibox float-e-margins">
-            
-            <div class="ibox-content">
-                <div class="row row-lg">
-                    
-
-                    <div class="col-sm-12">
-                        <!-- Example Toolbar -->
-                        <div class="example-wrap">
-                            <h4 class="example-title">工具条</h4>
-                            <div class="example">
-                                <div class="btn-group hidden-xs" id="exampleToolbar" role="group">
-                                    <button type="button" class="btn btn-outline btn-default">
-                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline btn-default">
-                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                                <table id="exampleTableToolbar" data-mobile-responsive="true">
-                                    <thead>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- End Example Toolbar -->
-                    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-        <!-- End Panel Other -->
+<div class="wrapper wrapper-content animated fadeInRight">
+       			<div class="btn-group hidden-xs" id="exampleToolbar" role="group">
+					<button type="button" class="btn btn-outline btn-default">
+						<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+					</button>
+					<button type="button" class="btn btn-outline btn-default">
+						<i class="glyphicon glyphicon-heart" aria-hidden="true"></i>
+					</button>
+					<button type="button" class="btn btn-outline btn-default">
+						<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+					</button>
+				</div>
+				<table id="exampleTableToolbar" data-mobile-responsive="true">
+					<thead>
+						
+					</thead>
+				</table>
+			
     </div>
 
-    <script>
+ <script>
 	$('#exampleTableToolbar').bootstrapTable({  
 	    method: 'post',  
 	    url: '${path}/role/roleList',
@@ -114,6 +92,3 @@
       	}
       
 </script>
-</body>
-</html>
-
