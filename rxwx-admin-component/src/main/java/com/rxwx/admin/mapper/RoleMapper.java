@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.github.pagehelper.PageInfo;
 import com.rxwx.common.mybatis.page.BootPage;
 import com.rxwx.model.Role;
 
@@ -19,7 +20,7 @@ public interface RoleMapper {
 
 	boolean roleDelAllResourceById(@Param("roleId") Integer roleId);
 
-	List<Role> findAllRole();
+	PageInfo<Role> findAllRole(BootPage page);
 
 
 	

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.github.pagehelper.PageInfo;
 import com.rxwx.common.mybatis.page.BootPage;
 import com.rxwx.model.Role;
 import com.rxwx.service.admin.RoleService;
@@ -55,12 +56,11 @@ public class RoleTest extends TestCase {
 	
 	@Test
 	public void findAll() {
-		BootPage<Role> page = new BootPage<Role>();
-		page.setOffset(1);
-		page.setLimit(3);
-    	page.setOffset(1);
-    	BootPage<Role> roles = roleService.findAllRoleByPage(page);
-		System.out.println("findAll() >> "+roles);
+		BootPage page = new BootPage();
+		page.setPageNum(1);
+		page.setPageSize(8);
+		PageInfo<Role> pageinfo = roleService.findAllRoleByPage(page);
+		System.out.println("findAll() >> "+pageinfo.getList());
 	}
 	
 	

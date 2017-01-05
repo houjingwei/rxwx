@@ -13,15 +13,14 @@ public class BootPage<T> implements Serializable{
 
 	private List<T> rows;
 
-	private int limit = 0;
+	private int pageNum = 0;
 
-	private int offset = 1;
+	private int pageSize = 1;
 
-	private String order = "asc";
 
-	public BootPage(int offset, int limit) {
-		this.offset = offset;
-		this.limit = limit;
+	public BootPage(int pageNum, int pageSize) {
+		this.pageNum = pageNum;
+		this.pageSize = pageSize;
 	}
 	public BootPage() {
 	}
@@ -42,28 +41,17 @@ public class BootPage<T> implements Serializable{
 		this.rows = rows;
 	}
 
-	public int getLimit() {
-		return limit;
+	public int getPageNum() {
+		return pageNum;
 	}
-
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
-
-	public int getOffset() {
-		return offset;
+	public int getPageSize() {
+		return pageSize;
 	}
-
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
-
-	public String getOrder() {
-		return order;
-	}
-
-	public void setOrder(String order) {
-		this.order = order;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 	
 }

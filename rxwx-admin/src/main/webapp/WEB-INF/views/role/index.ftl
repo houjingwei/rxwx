@@ -1,63 +1,119 @@
-<!DOCTYPE html>
 <html>
+<@h.head />
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="renderer" content="webkit">
-    <title>锐讯无限－首页</title>
-    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
-    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
-	<@h.head />
-</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
 
-<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
-    <div id="wrapper">
-        <@h.left />
-        <!--右侧部分开始-->
-        <div id="page-wrapper" class="gray-bg dashbard-1">
-            <@h.top />
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
             
-            <div class="row J_mainContent" id="content-main" style="OVERFLOW-Y: scroll;scrollbar-face-color:#B3DDF7;scrollbar-shadow-color:#B3DDF7;" >
-				
-                  <div class="wrapper wrapper-content animated fadeInRight" >
+            <div class="ibox-content">
+                <div class="row row-lg">
                     
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-content">
-                                    <table data-toggle="table" id="table" >
-								            <thead>
-								            </thead>
-									</table>
+
+                    <div class="col-sm-12">
+                        <!-- Example Toolbar -->
+                        <div class="example-wrap">
+                            <h4 class="example-title">工具条</h4>
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="exampleToolbar" role="group">
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                    </button>
                                 </div>
+                                <table id="exampleTableToolbar" data-mobile-responsive="true">
+                                    <thead>
+                                    </thead>
+                                </table>
                             </div>
                         </div>
+                        <!-- End Example Toolbar -->
                     </div>
-                </div>
-			</div>
 
-            <@h.fotter />
+                    
+                </div>
+            </div>
         </div>
+        <!-- End Panel Other -->
     </div>
+
     <script>
-		$('#table').bootstrapTable({
-            url: '${path}/role',
-            striped: true,
-            pagination: true,
-            pageList: [3,5,20],
-            pageSize:3,
-            pageNumber:1,
-            sidePagination:'server',//设置为服务器端分页
-            columns: [{
+	$('#exampleTableToolbar').bootstrapTable({  
+	    method: 'post',  
+	    url: '${path}/role/roleList',
+	    dataType: "json", 
+	    search: true,
+      	showRefresh: true,
+      	showColumns: true, 
+      	toolbar: '#exampleToolbar',
+	    iconSize: 'outline',
+	    icons: {
+	      refresh: 'glyphicon-repeat',
+	      toggle: 'glyphicon-list-alt',
+	      columns: 'glyphicon-list'
+	    },
+	    
+  		pagination: true,  //开启分页  
+	    sidePagination: 'server',//服务器端分页  
+	    pageNumber: 1,//默认加载页  
+	    pageSize: 5,//每页数据  
+	    pageList: [20, 50, 100, 500],//可选的每页数据  
+	    queryParamsType:'',
+	    queryParams: function (params) {  
+	        return {  
+		        startDate: $("#txtStartDate").val(),  
+		        endDate: $("#txtEndDate").val(),  
+		        merName: $("#txtMerName").val(),  
+	            pageSize: params.pageSize,  
+	            pageNumber: params.pageNumber  
+	        }  
+	    },
+      	columns: [
+      		{
+	            checkbox: true,
+	            align: 'center',
+	            valign: 'middle'
+          	},{
                 field: 'name',
                 title: '操作码'
             }, {
                 field: 'description',
                 title: '说明'
-            } ]
-        });
-	</script>
-
+            } ,{
+	            title: '操作',
+	            align: 'center',
+	            events: operateEvents,
+	            width:'20%',
+	            formatter:function(value,row,index){
+                   var e = '<button class="btn btn-primary btn-sm" type="button"><i class="fa fa-edit"></i>&nbsp;编辑</button>&nbsp';
+                   var d = '<button class="btn btn-default btn-sm" type="button"><i class="fa fa-wrench"></i>&nbsp;启用</button>';
+                   return e+d;
+          		}
+          	}
+         ]
+	});
+	
+	 function operateFormatter(value, row, index) {
+	      return [
+	        '<a class="like" href="javascript:void(0)" title="Like">',
+	        '<i class="glyphicon glyphicon-heart"></i>',
+	        '</a>  ',
+	        '<a class="remove" href="javascript:void(0)" title="Remove">',
+	        '<i class="glyphicon glyphicon-remove"></i>',
+	        '</a>'
+	      ].join(''); 
+      }
+      
+      function operateEvents(value, row, index){
+      
+      	alert(value);
+      	}
+      
+</script>
 </body>
-
 </html>
+

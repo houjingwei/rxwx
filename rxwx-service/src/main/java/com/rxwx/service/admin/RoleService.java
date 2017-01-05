@@ -1,5 +1,6 @@
 package com.rxwx.service.admin;
 
+import com.github.pagehelper.PageInfo;
 import com.rxwx.common.exception.CustomException;
 import com.rxwx.common.mybatis.page.BootPage;
 import com.rxwx.model.Role;
@@ -52,6 +53,6 @@ public interface RoleService {
 	 * @param page
 	 * @return
 	 */
-	public BootPage<Role> findAllRoleByPage(BootPage page) throws CustomException;
+	public PageInfo<Role> findAllRoleByPage(BootPage page) throws CustomException;
 
 }

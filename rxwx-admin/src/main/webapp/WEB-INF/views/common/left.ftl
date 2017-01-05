@@ -46,7 +46,7 @@
 							<ul class="nav nav-second-level">
 							    <#list menu.resMenuVoList as resMenu>
 							    	<@shiro.hasPermission  name="${resMenu.code!''}">
-							    		<li><a href="${path}${resMenu.url!''}">${resMenu.name!''}</a></li>
+							    		<li><a href="javascript:goto('${path}${resMenu.url!''}')">${resMenu.name!''}</a></li>
 									</@shiro.hasPermission>
 								</#list>
 							</ul>
@@ -60,3 +60,9 @@
     </div>
 </nav>
 <!--左侧导航结束-->
+
+<script>
+	function goto(path){
+		$(".J_iframe").attr("src",path); 
+	}
+</script>

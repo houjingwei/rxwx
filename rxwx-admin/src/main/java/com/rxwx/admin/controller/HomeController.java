@@ -17,4 +17,11 @@ public class HomeController extends BaseController{
 	public String index(Map map) {
 		return super.showView(map,"index");
 	}
+	
+	@RequestMapping(value = "/empty")
+	@RequiresAuthentication
+	public String empty(Map map) {
+		return super.showView(map,"empty_page");
+	}
+
 }

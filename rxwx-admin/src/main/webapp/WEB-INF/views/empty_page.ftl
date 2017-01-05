@@ -1,3 +1,4 @@
+<@h.head />
 <div class="row">
     <div class="col-sm-12">
         <div class="middle-box text-center animated fadeInRightBig">

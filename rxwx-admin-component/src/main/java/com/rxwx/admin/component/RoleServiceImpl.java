@@ -51,14 +51,10 @@ public class RoleServiceImpl  extends AbstractService  implements RoleService {
 	}
 
 	@Override
-	public BootPage<Role> findAllRoleByPage(BootPage page) throws CustomException {
+	public PageInfo<Role> findAllRoleByPage(BootPage page) throws CustomException {
 		try {
-			PageHelper.startPage(page.getOffset(), page.getLimit());
-			List<Role> list =  roleMapper.findAllRole();
-			PageInfo info = new PageInfo(list);
-			page.setRows(info.getList());
-			page.setTotal(info.getTotal());
-			return page;
+			PageInfo<Role> info = roleMapper.findAllRole(page);
+			return info;
 		} catch (Exception e) {
 			logger.error("catch Exception", e);
 
