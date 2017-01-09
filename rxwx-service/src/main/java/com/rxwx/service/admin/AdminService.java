@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.rxwx.common.exception.CustomException;
 import com.rxwx.model.Admin;
-import com.rxwx.model.Role;
 import com.rxwx.vo.AdminResourceVo;
 
 public interface AdminService {

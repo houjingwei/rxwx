@@ -31,8 +31,4 @@
 	</bean>
 
 
-	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
-		<constructor-arg ref="redisTemplate" />
-	</bean>
-
 </beans>

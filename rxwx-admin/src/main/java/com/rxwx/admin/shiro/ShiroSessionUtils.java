@@ -41,17 +41,10 @@ public class ShiroSessionUtils {
 		return null;
 	}
 
-	public boolean hasLogin() {
+	public static boolean hasLogin() {
 		return getAttribute(LOGIN_ATTRIVUTE_NAME) != null ? true : false;
 	}
 
-	public static void setAsLogin(Admin admin) {
-		
-	}
-
-	public static void setAsLogout() {
-		removeAttribute(LOGIN_ATTRIVUTE_NAME);
-	}
 
 	public static Admin getLoginAccount() {
 		return (Admin) getAttribute(LOGIN_ATTRIVUTE_NAME);

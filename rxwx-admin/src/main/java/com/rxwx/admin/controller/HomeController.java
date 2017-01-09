@@ -2,7 +2,10 @@ package com.rxwx.admin.controller;
 
 import java.util.Map;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,6 +18,7 @@ public class HomeController extends BaseController{
 	@RequestMapping(value = "/index")
 	@RequiresAuthentication
 	public String index(Map map) {
+		System.out.println("hasRole fuck :" +SecurityUtils.getSubject().hasRole("fuck"));
 		return super.showView(map,"index");
 	}
 	

@@ -18,41 +18,17 @@
 
 
 	<mvc:annotation-driven>
-		<mvc:message-converters>
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-				<property name="supportedMediaTypes">
-					<list>
-						<value>text/plain;charset=UTF-8</value>
-						<value>text/html;charset=UTF-8</value>
-						<value>text/javascript;charset=UTF-8</value>
-						<value>application/javascript;charset=UTF-8</value>
-						<value>application/json; charset=UTF-8</value>
-						<value>application/x-www-form-urlencoded; charset=UTF-8</value>
-					</list>
-				</property>
-			</bean>
+		<mvc:message-converters register-defaults="true">
+			<!-- 默认情况下MappingJacksonHttpMessageConverter会设置content为application/json，在IE9下返回会出现提示下载的现象 -->
 			<bean
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-				<property name="objectMapper">
-					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
-						<!-- 序列化为Json时，空值的字段忽略不转换 -->
-						<property name="serializationInclusion">
-							<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
-						</property>
-					</bean>
-				</property>
-
-				<property name="supportedMediaTypes">
-					<list>
-						<value>text/javascript;charset=UTF-8</value>
-						<value>application/javascript;charset=UTF-8</value>
-						<value>application/json; charset=UTF-8</value>
-						<value>application/x-www-form-urlencoded; charset=UTF-8</value>
-					</list>
-				</property>
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"
+				p:supportedMediaTypes="text/html;charset=UTF-8">
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<mvc:annotation-driven />
+	
 	
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<mvc:annotation-driven />

@@ -27,13 +27,15 @@ public class RoleController extends BaseController{
 	@Autowired RoleService roleService;
 	
 	@RequestMapping(value = "/index")
+	@RequiresAuthentication
 	public String index(Map map) {	
 		return super.showView(map,"/role/index");
 	}
 	
 
-	@RequestMapping(value = "/roleList")
+	@RequestMapping(value = "/roleList", produces = "text/html;charset=UTF-8")
 	@ResponseBody
+	@RequiresAuthentication
 	public String index(Map map,@RequestBody JSONObject jsonObj) {	
 		
 		int pageSize = jsonObj.getIntValue("pageSize");  

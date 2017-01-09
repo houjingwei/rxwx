@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.dubbo.container.page.Page;
 import com.rxwx.common.exception.CustomException;
 import com.rxwx.model.User;
 import com.rxwx.service.user.AccountService;
@@ -22,9 +21,7 @@ import com.rxwx.vo.UserVo;
 
 @Controller
 @RequestMapping(value = "/user")
-
 public class ApiController extends BaseController{
-
 
 	
 	@Autowired  UserService userService;

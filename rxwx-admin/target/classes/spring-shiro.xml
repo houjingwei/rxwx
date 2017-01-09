@@ -13,6 +13,15 @@
 		<property name="failureUrl" value="/" />
 	</bean>
 
+	<!-- 基于Form表单的身份验证过滤器 -->
+    <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+        <property name="usernameParam" value="username" />
+        <property name="passwordParam" value="password" />
+        <property name="loginUrl" value="/login" />
+        <property name="successUrl" value="/home/index"></property>
+    </bean>
+
+
 	<!-- Shiro的Web过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
@@ -22,14 +31,15 @@
 		<property name="filters">
 			<util:map>
 				<entry key="cas" value-ref="casFilter" />
+				<entry key="authc" value-ref="formAuthenticationFilter" />
 			</util:map>
 		</property>
 		<property name="filterChainDefinitions">
 			<value>
-				/** = anon
 				/assets/** = anon
-				/home/** = authc
-
+				/logout = logout
+				/login = authc
+				/** = anon
 			</value>
 		</property>
 	</bean>
@@ -38,12 +48,10 @@
 	<bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
-			<props>		   
+			<props>
 				<prop key="org.apache.shiro.authz.UnauthorizedException">unauthorized</prop>
 				<prop key="org.apache.shiro.authz.UnauthenticatedException">login</prop>
 				<prop key="org.apache.shiro.authz.UnauthenticatedException">login</prop>
-				
-				
 			</props>
 		</property>
 	</bean>
@@ -51,44 +59,32 @@
 	<!-- shiro securityManager -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="myRealm" />
-		<property name="sessionManager" ref="sessionManager" />
 		<property name="cacheManager" ref="cacheManager" />
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- session的实效时间，单位毫秒 -->
+		<property name="globalSessionTimeout" value="60000" />
+		<property name="deleteInvalidSessions" value="true"></property>
+		
 	</bean>
 
 
 	<!-- Realm实现 -->
 	<bean id="myRealm" class="com.rxwx.admin.shiro.realm.MyRealm">
 		<property name="adminService" ref="adminService" />
-		<!-- <property name="credentialsMatcher" ref="credentialsMatcher" /> -->
-		<property name="cachingEnabled" value="true" />
 	</bean>
+
+	<!-- cacheManager -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:shiro/shiro-ehcache.xml" />
+	</bean>
+
 
 
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-	<!-- shiro redisManager -->
-	<bean id="redisManager" class="org.crazycake.shiro.RedisManager">
-		<property name="host" value="139.224.72.183" />
-		<property name="port" value="6379" />
-		<property name="expire" value="1800" />
-		<!-- optional properties: <property name="timeout" value="10000"/> <property 
-			name="password" value="123456"/> -->
-	</bean>
-
-	<!-- redisSessionDAO -->
-	<bean id="redisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
-		<property name="redisManager" ref="redisManager" />
-	</bean>
-
-	<!-- sessionManager -->
-	<bean id="sessionManager"
-		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
-		<property name="sessionDAO" ref="redisSessionDAO" />
-	</bean>
-
-	<!-- cacheManager -->
-	<bean id="cacheManager" class="org.crazycake.shiro.RedisCacheManager">
-		<property name="redisManager" ref="redisManager" />
-	</bean>
 
 </beans>

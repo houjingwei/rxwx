@@ -9,6 +9,9 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -110,6 +113,7 @@ public class CacheServiceImpl implements CacheService {
 	}
 
 	public void add(String key, Object value, int minutes) throws CustomException {
+		System.out.println("**** cache add("+key+"--"+value+"--"+minutes+")");
 		try {
 			redisTemplate.opsForValue().set(key, value);
 			redisTemplate.expire(key, minutes, TimeUnit.MINUTES);
@@ -120,6 +124,7 @@ public class CacheServiceImpl implements CacheService {
 	}
 
 	public void add(String key, Object value) throws CustomException {
+		System.out.println("**** cache add("+key+"--"+value+")");
 		try {
 			redisTemplate.opsForValue().set(key, value);
 		} catch (Exception ex) {
@@ -172,6 +177,7 @@ public class CacheServiceImpl implements CacheService {
 	}
 
 	public Object get(String key) throws CustomException {
+		System.out.println("**** cache Object get("+key+")");
 		try {
 			return redisTemplate.opsForValue().get(key);
 		} catch (Exception ex) {
@@ -220,6 +226,7 @@ public class CacheServiceImpl implements CacheService {
 
 	public void remove(String key) throws CustomException {
 		try {
+			System.out.println("**** cache remove("+key+")");
 			if (exists(key)) {
 				redisTemplate.delete(key);
 			}
@@ -261,11 +268,47 @@ public class CacheServiceImpl implements CacheService {
 
 	public void expire(String key, int minutes) throws CustomException {
 		try {
+			System.out.println("**** cache expire("+key+"---"+minutes+")");
 			redisTemplate.expire(key, minutes, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CustomException(CustomExceptionEnum.EXC_CACHE_ERROR, e.getMessage());
 		}
+	}
+
+	@Override
+	public Set<String> allprefixKeys(String prefix) throws CustomException {
+		try {
+			System.out.println("**** cache allprefixKeys("+prefix+")");
+			return redisTemplate.keys(prefix);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new CustomException(CustomExceptionEnum.EXC_CACHE_ERROR, e.getMessage());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public String dbSize() throws CustomException {
+		System.out.println("**** cache dbSize");
+		return (String) redisTemplate.execute(new RedisCallback() {
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.dbSize();
+            }
+        });
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void flushDB() throws CustomException {
+		System.out.println("**** cache flushDB");
+		redisTemplate.execute(new RedisCallback() {
+            public String doInRedis(RedisConnection connection) throws DataAccessException {
+                connection.flushDb();
+				return null;
+            }
+        });
+		
 	}
 
 	

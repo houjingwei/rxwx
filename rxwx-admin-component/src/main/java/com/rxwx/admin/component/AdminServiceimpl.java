@@ -33,6 +33,7 @@ public class AdminServiceimpl  extends AbstractService  implements AdminService 
 		return adminMapper.findByAccount(account);
 	}
 	
+	@Deprecated
 	public List<AdminResourceVo> findAdminResourceVo(Integer adminId) {
 		return adminMapper.findAdminResourceVo(adminId);
 	}

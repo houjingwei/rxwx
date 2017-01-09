@@ -1,6 +1,6 @@
 package com.rxwx.admin.controller;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -10,6 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,40 +19,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AccountController {
 
 	@RequestMapping(value = "/")
-	@RequiresAuthentication
 	public String index() {
 		return "login";
 	}
 	
 	
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String home(String username,String password){
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);   
-        Subject currentUser = SecurityUtils.getSubject();   
-        try {
-        	if(!currentUser.isAuthenticated()){
-        		currentUser.login(token);
-        	}
-		} catch (AuthenticationException e) {
-			if(e instanceof UnknownAccountException){
-				System.out.println("用户不存在");
-			}else if(e instanceof IncorrectCredentialsException){
-				System.out.println("密码不正确");
-			}
-		}  
-        return "redirect:/home/index"; 
-    }
-	
-	
-	@RequestMapping(value = "/logout")
-    public String logout(){
-		if(null!=SecurityUtils.getSubject().getSession()){
-			SecurityUtils.getSubject().logout();
-		}else{
-			System.out.println("已经退出了");
+    public String login(HttpServletRequest request,Model model){
+		String errorClassName = (String) request.getAttribute("shiroLoginFailure");
+		String authticationError = null;
+		if (UnknownAccountException.class.getName().equals(errorClassName)) {
+			authticationError = "用户不存在";
+		} else if (IncorrectCredentialsException.class.getName().equals(errorClassName)) {
+			authticationError = "密码错误";
+		} else if (errorClassName != null) {
+			authticationError = "未知错误：" + errorClassName;
 		}
-		return  "redirect:/"; 
+		model.addAttribute("authticationError", authticationError);
+		boolean bool = SecurityUtils.getSubject().isAuthenticated();
+		System.out.println("用户认证结果 >>" + bool);
+		return "login";
     }
+	
+	
+	
+
 	
 	@RequestMapping(value = "/unauthorized")
     public String unauthorizedUrl(){

@@ -1,7 +1,11 @@
 package com.rxwx.model;
 
 import java.io.Serializable;
-
+/**
+ * 
+ * @author hjw
+ *
+ */
 public abstract class BaseModel implements Serializable{
 
 	/**

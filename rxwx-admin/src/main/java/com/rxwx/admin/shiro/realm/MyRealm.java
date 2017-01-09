@@ -11,6 +11,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rxwx.admin.shiro.ShiroSessionUtils;
@@ -36,6 +37,7 @@ public class MyRealm extends AuthorizingRealm {
 			SecurityUtils.getSubject().logout();
 			return null;
 		}
+		System.out.println("进入授权了");
 		String account = (String) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.setRoles(this.adminService.findRoles(account));
@@ -50,15 +52,14 @@ public class MyRealm extends AuthorizingRealm {
 		if (admin == null) {
 			throw new UnknownAccountException();// 没找到帐号
 		}
-
-
 		System.out.println("authenticationinfo start ...");
+		
 		// 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(admin.getAccount(), // 用户名
 				admin.getPassword(), // 密码
 				getName() // realm name
 		);
-		SecurityUtils.getSubject().getSession().setAttribute("uid", admin.getId());
+		ShiroSessionUtils.setLoginAccount(admin);
 		System.out.println("authenticationinfo end ...");
 
 		// 登陆成功，将用户存入session

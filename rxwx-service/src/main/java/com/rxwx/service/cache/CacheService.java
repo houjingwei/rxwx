@@ -2,6 +2,7 @@ package com.rxwx.service.cache;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import com.rxwx.common.exception.CustomException;
 
@@ -122,7 +123,15 @@ public interface CacheService {
 
 	void expire(String key, int minutes) throws CustomException;
 
-	public boolean exists(final String key);
+	public boolean exists(final String key)throws CustomException;
 	
-	public void removeObject(final String key);
+	public void removeObject(final String key)throws CustomException;
+
+	public Set<String> allprefixKeys(String prefix)throws CustomException;
+
+	public String dbSize()throws CustomException;
+
+	public void flushDB()throws CustomException;
+	
+	
 }
