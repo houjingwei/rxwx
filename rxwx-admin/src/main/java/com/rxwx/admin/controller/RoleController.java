@@ -29,7 +29,7 @@ public class RoleController extends BaseController{
 	@RequestMapping(value = "/index")
 	@RequiresAuthentication
 	public String index(Map map) {	
-		return super.showView(map,"/role/index");
+		return super.showView(map,"/role/role_index");
 	}
 	
 
